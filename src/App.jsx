@@ -7,7 +7,7 @@ import { EXAMPLES } from "./data";
 import { reactDescription, genrateInt } from "./Components/Header/Header";
 
 function App() {
-
+  
   const description = reactDescription[genrateInt(2)];
 
   const [content, setContent] = useState();
@@ -20,8 +20,29 @@ function App() {
 
   let tabContent = <p id="p">Pleas Cilick on Button to Chose the Topic</p>;
   if (content) {
+
+    const handleProductClick = (content) => {
+      // Ensure dataLayer array exists
+     
+  
+      // Push product data to the data layer dynamically
+      window.dataLayer.push({
+        event: 'product_click',
+        product_id: EXAMPLES[content].title,
+        product_name: [content].description,
+        product_price: EXAMPLES[content].code
+      });
+  
+      console.log('Data layer push:', {
+        event: 'product_click',
+        product_id: EXAMPLES[content].title,
+        product_name: [content].description,
+        product_price: EXAMPLES[content].code
+      });
+    };
+
     tabContent = (
-      <div id="tab-content">
+      <div id="tab-content" onClick={handleProductClick(content)}>
         <h3>{EXAMPLES[content].title}</h3>
         <p>{EXAMPLES[content].description}</p>
         <pre>
